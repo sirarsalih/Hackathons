@@ -1,0 +1,198 @@
+﻿body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.shoeImage {
+    width: 75%;
+    height: 75%;
+    margin-left: -10%;
+}
+.shoeName {
+    font-family: Consolas, Regular;
+    font-size: 2em;
+}
+
+.shoeItem {
+    margin-top: 70px;
+}
+
+.smallTextProductList {
+    font-family: Helvetica Neue, Italic;
+    font-size: 1.6em;    
+}
+.brandText {
+    font-family: Consolas, Regular;
+    font-size: 1.6em;    }
+.disableLink {
+    pointer-events: none;
+    cursor: default;
+}
+
+.navbar .navbar-inner .container {
+    background-color: #aaddf1;
+    color: black;
+}
+
+.navbar-inverse .navbar-inner {
+    background-image: -ms-linear-gradient(top, #aaddf1, #aaddf1);
+    background-image: -webkit-linear-gradient(top, #aaddf1, #aaddf1);
+    background-image: linear-gradient(to bottom, #aaddf1, #aaddf1);
+        color: black;
+
+}
+
+.navbar .nav > li > a {
+    float: none;
+    padding: 25px 10px 11px;
+    text-decoration: none;
+    color: black;
+    font-family: Consolas, Regular;
+    font-size: 2em;
+
+}
+
+    .navbar .nav > li > a:hover {
+        color: #fff;
+    }
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* styles for removing the background from form */
+.no-color {
+    background-color: white;
+    border-style: none;
+}
+
+.MainButton {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid gray;
+    display: inline-block;
+    text-decoration: none;
+    background: #606162;
+    color: #FFFFFF;
+    cursor: pointer;
+    font: 12px sans-serif;
+    opacity: 0.6;
+}
+
+    .MainButton:hover {
+        color: #CCCCCC;
+    }
+
+/*KlarnaInvoice - Begin -------------------------------------*/
+.KlarnaInvoiceLogo {
+        padding: 10px;
+}
+/*KlarnaInvoice - End ---------------------------------------*/
+
+/*KlarnaAccount - Begin -------------------------------------*/
+.KLarnaAccountLogo {
+        padding: 10px;
+}
+
+/*KlarnaAccount - End ---------------------------------------*/
+
+/*Checkout - Begin ------------------------------------------*/
+
+.CheckoutProdItemText {
+    vertical-align: top;
+    width: 150px;
+}
+
+.CheckoutProdItemImageBox {
+    height: 80px;
+    width: 120px;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.CheckoutProdItemImage {
+    height: 80px;
+    width: 120px;
+}
+
+.CheckoutProdItemPrice {
+    vertical-align: top;
+    text-align: right;
+    width: 80px;
+}
+
+.CheckoutProdItemCount {
+    vertical-align: top;
+    text-align: right;
+}
+
+.CheckoutPaymentShipping {
+    text-align: right;
+    height: 20px;
+    padding: 5px;
+    width: 50px;
+    vertical-align: top;
+}
+
+.CheckoutPaymentLogo {
+    height: auto;
+    width: 100%;
+}
+
+.CheckoutPaymentShippingTable {
+    border: 0 none;
+    width: 150px;
+    vertical-align: top;
+}
+
+    .CheckoutPaymentShippingTable th {
+        width: 150px;
+        vertical-align: middle;
+    }
+
+    .CheckoutPaymentShippingTable td {
+        width: 150px;
+        text-align: right;
+        vertical-align: middle;
+    }
+
+.CheckoutProducts {
+    border: 0 none;
+    width: 450px;
+}
+
+.CheckoutTableSpace {
+    width: 100px;
+}
+
+/*Checkout - End --------------------------------------------*/
+
+
+
+
+
+
+
+

@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FF37B6D1-6A34-4474-B13C-3C2E1B6155F0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Itera.Fagdag.November</RootNamespace>
+    <AssemblyName>Itera.Fagdag.November</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Bootstrapper">
+      <HintPath>..\packages\Bootstrapper.2.0.3.9\lib\Net40\Bootstrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Bootstrapper.AutoMapper">
+      <HintPath>..\packages\Bootstrapper.AutoMapper.2.0.3.11\lib\Net40\Bootstrapper.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0-beta1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.3.1.3.3\lib\net35\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0-alpha1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0-alpha1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.1.1.0-beta1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.1.1.0-beta1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.1.1.0-beta1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.1.1.0-beta1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Forms">
+      <HintPath>..\packages\Microsoft.Owin.Security.Forms.1.1.0-beta1\lib\net45\Microsoft.Owin.Security.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.1.1.0-beta1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.1.1.0-beta1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.1.1.0-beta1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web">
+      <HintPath>..\packages\Ninject.Web.3.0.0.5\lib\net45-full\Ninject.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0-beta1\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0-beta1\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0-beta1\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0-beta1\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0-beta1\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\LoggerConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\ManageProductsController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\Common.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Data\SeedData.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Data\IteraLibraryDbContext.cs" />
+    <Compile Include="Helpers\Conversion.cs" />
+    <Compile Include="Logging\Contract\ILogger.cs" />
+    <Compile Include="Logging\LoggerExtension.cs" />
+    <Compile Include="Logging\NLogLogger.cs" />
+    <Compile Include="Repositories\Contracts\ISearchRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\Contracts\IProductRepository.cs" />
+    <Compile Include="Repositories\Contracts\ICartRepository.cs" />
+    <Compile Include="Repositories\CartRepository.cs" />
+    <Compile Include="Repositories\SearchRepository.cs" />
+    <Compile Include="Resources\Keys\Keys.cs" />
+    <Compile Include="Services\Contracts\ISearchService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\Contracts\IProductService.cs" />
+    <Compile Include="Services\Contracts\ICartService.cs" />
+    <Compile Include="Services\CartService.cs" />
+    <Compile Include="Services\SearchService.cs" />
+    <Compile Include="Validation\Contracts\IFileFormatValidation.cs" />
+    <Compile Include="Validation\FileFormatValidation.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="Identity\IdentityModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModels\CartViewModel.cs" />
+    <Compile Include="ViewModels\ManageBooksViewModel.cs" />
+    <Compile Include="ViewModels\NotFoundViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <EmbeddedResource Include="Content\Shoes\0172.jpg" />
+    <EmbeddedResource Include="Content\Shoes\1.jpg" />
+    <EmbeddedResource Include="Content\Shoes\1.txt" />
+    <EmbeddedResource Include="Content\Shoes\100.jpg" />
+    <EmbeddedResource Include="Content\Shoes\100.txt" />
+    <EmbeddedResource Include="Content\Shoes\102.jpg" />
+    <EmbeddedResource Include="Content\Shoes\102.txt" />
+    <EmbeddedResource Include="Content\Shoes\103.jpg" />
+    <EmbeddedResource Include="Content\Shoes\103.txt" />
+    <EmbeddedResource Include="Content\Shoes\105.jpg" />
+    <EmbeddedResource Include="Content\Shoes\105.txt" />
+    <EmbeddedResource Include="Content\Shoes\107.jpg" />
+    <EmbeddedResource Include="Content\Shoes\107.txt" />
+    <EmbeddedResource Include="Content\Shoes\11.jpg" />
+    <EmbeddedResource Include="Content\Shoes\11.txt" />
+    <EmbeddedResource Include="Content\Shoes\115.jpg" />
+    <EmbeddedResource Include="Content\Shoes\115.txt" />
+    <EmbeddedResource Include="Content\Shoes\117.jpg" />
+    <EmbeddedResource Include="Content\Shoes\117.txt" />
+    <EmbeddedResource Include="Content\Shoes\118.jpg" />
+    <EmbeddedResource Include="Content\Shoes\118.txt" />
+    <EmbeddedResource Include="Content\Shoes\12.jpg" />
+    <EmbeddedResource Include="Content\Shoes\12.txt" />
+    <EmbeddedResource Include="Content\Shoes\122.jpg" />
+    <EmbeddedResource Include="Content\Shoes\122.txt" />
+    <EmbeddedResource Include="Content\Shoes\123.jpg" />
+    <EmbeddedResource Include="Content\Shoes\123.txt" />
+    <EmbeddedResource Include="Content\Shoes\124.jpg" />
+    <EmbeddedResource Include="Content\Shoes\124.txt" />
+    <EmbeddedResource Include="Content\Shoes\126.jpg" />
+    <EmbeddedResource Include="Content\Shoes\126.txt" />
+    <EmbeddedResource Include="Content\Shoes\127.jpg" />
+    <EmbeddedResource Include="Content\Shoes\127.txt" />
+    <EmbeddedResource Include="Content\Shoes\13.jpg" />
+    <EmbeddedResource Include="Content\Shoes\13.txt" />
+    <EmbeddedResource Include="Content\Shoes\132.jpg" />
+    <EmbeddedResource Include="Content\Shoes\132.txt" />
+    <EmbeddedResource Include="Content\Shoes\136.jpg" />
+    <EmbeddedResource Include="Content\Shoes\136.txt" />
+    <EmbeddedResource Include="Content\Shoes\139.jpg" />
+    <EmbeddedResource Include="Content\Shoes\139.txt" />
+    <EmbeddedResource Include="Content\Shoes\142.jpg" />
+    <EmbeddedResource Include="Content\Shoes\142.txt" />
+    <EmbeddedResource Include="Content\Shoes\145.jpg" />
+    <EmbeddedResource Include="Content\Shoes\145.txt" />
+    <EmbeddedResource Include="Content\Shoes\15.jpg" />
+    <EmbeddedResource Include="Content\Shoes\15.txt" />
+    <EmbeddedResource Include="Content\Shoes\151.jpg" />
+    <EmbeddedResource Include="Content\Shoes\151.txt" />
+    <EmbeddedResource Include="Content\Shoes\154.jpg" />
+    <EmbeddedResource Include="Content\Shoes\154.txt" />
+    <EmbeddedResource Include="Content\Shoes\156.jpg" />
+    <EmbeddedResource Include="Content\Shoes\156.txt" />
+    <EmbeddedResource Include="Content\Shoes\162.jpg" />
+    <EmbeddedResource Include="Content\Shoes\162.txt" />
+    <EmbeddedResource Include="Content\Shoes\166.jpg" />
+    <EmbeddedResource Include="Content\Shoes\166.txt" />
+    <EmbeddedResource Include="Content\Shoes\171.jpg" />
+    <EmbeddedResource Include="Content\Shoes\171.txt" />
+    <EmbeddedResource Include="Content\Shoes\1711.jpg" />
+    <EmbeddedResource Include="Content\Shoes\1711.txt" />
+    <EmbeddedResource Include="Content\Shoes\172.txt" />
+    <EmbeddedResource Include="Content\Shoes\1734.jpg" />
+    <EmbeddedResource Include="Content\Shoes\1734.txt" />
+    <EmbeddedResource Include="Content\Shoes\174.jpg" />
+    <EmbeddedResource Include="Content\Shoes\174.txt" />
+    <EmbeddedResource Include="Content\Shoes\1751.jpg" />
+    <EmbeddedResource Include="Content\Shoes\1751.txt" />
+    <EmbeddedResource Include="Content\Shoes\1763.jpg" />
+    <EmbeddedResource Include="Content\Shoes\1763.txt" />
+    <EmbeddedResource Include="Content\Shoes\1783.jpg" />
+    <EmbeddedResource Include="Content\Shoes\1783.txt" />
+    <EmbeddedResource Include="Content\Shoes\18.jpg" />
+    <EmbeddedResource Include="Content\Shoes\18.txt" />
+    <EmbeddedResource Include="Content\Shoes\180.jpg" />
+    <EmbeddedResource Include="Content\Shoes\180.txt" />
+    <EmbeddedResource Include="Content\Shoes\186.jpg" />
+    <EmbeddedResource Include="Content\Shoes\186.txt" />
+    <EmbeddedResource Include="Content\Shoes\189.jpg" />
+    <EmbeddedResource Include="Content\Shoes\189.txt" />
+    <EmbeddedResource Include="Content\Shoes\19.jpg" />
+    <EmbeddedResource Include="Content\Shoes\19.txt" />
+    <EmbeddedResource Include="Content\Shoes\1942.jpg" />
+    <EmbeddedResource Include="Content\Shoes\1942.txt" />
+    <EmbeddedResource Include="Content\Shoes\2002.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2002.txt" />
+    <EmbeddedResource Include="Content\Shoes\2003.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2003.txt" />
+    <EmbeddedResource Include="Content\Shoes\2004.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2004.txt" />
+    <EmbeddedResource Include="Content\Shoes\2006.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2006.txt" />
+    <EmbeddedResource Include="Content\Shoes\2008.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2008.txt" />
+    <EmbeddedResource Include="Content\Shoes\201.jpg" />
+    <EmbeddedResource Include="Content\Shoes\201.txt" />
+    <EmbeddedResource Include="Content\Shoes\2010.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2010.txt" />
+    <EmbeddedResource Include="Content\Shoes\2011.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2011.txt" />
+    <EmbeddedResource Include="Content\Shoes\2014.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2014.txt" />
+    <EmbeddedResource Include="Content\Shoes\2017.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2017.txt" />
+    <EmbeddedResource Include="Content\Shoes\2020.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2020.txt" />
+    <EmbeddedResource Include="Content\Shoes\212.jpg" />
+    <EmbeddedResource Include="Content\Shoes\212.txt" />
+    <EmbeddedResource Include="Content\Shoes\213.jpg" />
+    <EmbeddedResource Include="Content\Shoes\213.txt" />
+    <EmbeddedResource Include="Content\Shoes\215.jpg" />
+    <EmbeddedResource Include="Content\Shoes\215.txt" />
+    <EmbeddedResource Include="Content\Shoes\216.jpg" />
+    <EmbeddedResource Include="Content\Shoes\216.txt" />
+    <EmbeddedResource Include="Content\Shoes\219.jpg" />
+    <EmbeddedResource Include="Content\Shoes\219.txt" />
+    <EmbeddedResource Include="Content\Shoes\220.jpg" />
+    <EmbeddedResource Include="Content\Shoes\220.txt" />
+    <EmbeddedResource Include="Content\Shoes\2201.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2201.txt" />
+    <EmbeddedResource Include="Content\Shoes\2203.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2203.txt" />
+    <EmbeddedResource Include="Content\Shoes\2205.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2205.txt" />
+    <EmbeddedResource Include="Content\Shoes\2207.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2207.txt" />
+    <EmbeddedResource Include="Content\Shoes\2208.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2208.txt" />
+    <EmbeddedResource Include="Content\Shoes\2210.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2210.txt" />
+    <EmbeddedResource Include="Content\Shoes\2301.jpg" />
+    <EmbeddedResource Include="Content\Shoes\2301.txt" />
+    <EmbeddedResource Include="Content\Shoes\25.jpg" />
+    <EmbeddedResource Include="Content\Shoes\25.txt" />
+    <EmbeddedResource Include="Content\Shoes\27.jpg" />
+    <EmbeddedResource Include="Content\Shoes\27.txt" />
+    <EmbeddedResource Include="Content\Shoes\29.jpg" />
+    <EmbeddedResource Include="Content\Shoes\29.txt" />
+    <EmbeddedResource Include="Content\Shoes\3.jpg" />
+    <EmbeddedResource Include="Content\Shoes\3.txt" />
+    <EmbeddedResource Include="Content\Shoes\30.jpg" />
+    <EmbeddedResource Include="Content\Shoes\30.txt" />
+    <EmbeddedResource Include="Content\Shoes\32.jpg" />
+    <EmbeddedResource Include="Content\Shoes\32.txt" />
+    <EmbeddedResource Include="Content\Shoes\36.jpg" />
+    <EmbeddedResource Include="Content\Shoes\36.txt" />
+    <EmbeddedResource Include="Content\Shoes\39.jpg" />
+    <EmbeddedResource Include="Content\Shoes\39.txt" />
+    <EmbeddedResource Include="Content\Shoes\401.jpg" />
+    <EmbeddedResource Include="Content\Shoes\401.txt" />
+    <EmbeddedResource Include="Content\Shoes\404.jpg" />
+    <EmbeddedResource Include="Content\Shoes\404.txt" />
+    <EmbeddedResource Include="Content\Shoes\410.jpg" />
+    <EmbeddedResource Include="Content\Shoes\410.txt" />
+    <EmbeddedResource Include="Content\Shoes\414.jpg" />
+    <EmbeddedResource Include="Content\Shoes\414.txt" />
+    <EmbeddedResource Include="Content\Shoes\416.jpg" />
+    <EmbeddedResource Include="Content\Shoes\416.txt" />
+    <EmbeddedResource Include="Content\Shoes\422.jpg" />
+    <EmbeddedResource Include="Content\Shoes\422.txt" />
+    <EmbeddedResource Include="Content\Shoes\430.jpg" />
+    <EmbeddedResource Include="Content\Shoes\430.txt" />
+    <EmbeddedResource Include="Content\Shoes\439.jpg" />
+    <EmbeddedResource Include="Content\Shoes\439.txt" />
+    <EmbeddedResource Include="Content\Shoes\44.jpg" />
+    <EmbeddedResource Include="Content\Shoes\44.txt" />
+    <EmbeddedResource Include="Content\Shoes\442.jpg" />
+    <EmbeddedResource Include="Content\Shoes\442.txt" />
+    <EmbeddedResource Include="Content\Shoes\451.jpg" />
+    <EmbeddedResource Include="Content\Shoes\451.txt" />
+    <EmbeddedResource Include="Content\Shoes\458.jpg" />
+    <EmbeddedResource Include="Content\Shoes\458.txt" />
+    <EmbeddedResource Include="Content\Shoes\461.jpg" />
+    <EmbeddedResource Include="Content\Shoes\461.txt" />
+    <EmbeddedResource Include="Content\Shoes\462.jpg" />
+    <EmbeddedResource Include="Content\Shoes\462.txt" />
+    <EmbeddedResource Include="Content\Shoes\464.jpg" />
+    <EmbeddedResource Include="Content\Shoes\464.txt" />
+    <EmbeddedResource Include="Content\Shoes\47.jpg" />
+    <EmbeddedResource Include="Content\Shoes\47.txt" />
+    <EmbeddedResource Include="Content\Shoes\470.jpg" />
+    <EmbeddedResource Include="Content\Shoes\470.txt" />
+    <EmbeddedResource Include="Content\Shoes\472.jpg" />
+    <EmbeddedResource Include="Content\Shoes\472.txt" />
+    <EmbeddedResource Include="Content\Shoes\475.jpg" />
+    <EmbeddedResource Include="Content\Shoes\475.txt" />
+    <EmbeddedResource Include="Content\Shoes\50.jpg" />
+    <EmbeddedResource Include="Content\Shoes\50.txt" />
+    <EmbeddedResource Include="Content\Shoes\54.jpg" />
+    <EmbeddedResource Include="Content\Shoes\54.txt" />
+    <EmbeddedResource Include="Content\Shoes\59.jpg" />
+    <EmbeddedResource Include="Content\Shoes\59.txt" />
+    <EmbeddedResource Include="Content\Shoes\65.jpg" />
+    <EmbeddedResource Include="Content\Shoes\65.txt" />
+    <EmbeddedResource Include="Content\Shoes\7.jpg" />
+    <EmbeddedResource Include="Content\Shoes\7.txt" />
+    <EmbeddedResource Include="Content\Shoes\704.jpg" />
+    <EmbeddedResource Include="Content\Shoes\704.txt" />
+    <EmbeddedResource Include="Content\Shoes\708.jpg" />
+    <EmbeddedResource Include="Content\Shoes\708.txt" />
+    <EmbeddedResource Include="Content\Shoes\8.jpg" />
+    <EmbeddedResource Include="Content\Shoes\8.txt" />
+    <EmbeddedResource Include="Content\Shoes\80.jpg" />
+    <EmbeddedResource Include="Content\Shoes\80.txt" />
+    <EmbeddedResource Include="Content\Shoes\807.jpg" />
+    <EmbeddedResource Include="Content\Shoes\807.txt" />
+    <EmbeddedResource Include="Content\Shoes\809.jpg" />
+    <EmbeddedResource Include="Content\Shoes\809.txt" />
+    <EmbeddedResource Include="Content\Shoes\823.jpg" />
+    <EmbeddedResource Include="Content\Shoes\823.txt" />
+    <EmbeddedResource Include="Content\Shoes\824.jpg" />
+    <EmbeddedResource Include="Content\Shoes\824.txt" />
+    <EmbeddedResource Include="Content\Shoes\83.jpg" />
+    <EmbeddedResource Include="Content\Shoes\83.txt" />
+    <EmbeddedResource Include="Content\Shoes\832.jpg" />
+    <EmbeddedResource Include="Content\Shoes\832.txt" />
+    <EmbeddedResource Include="Content\Shoes\85.jpg" />
+    <EmbeddedResource Include="Content\Shoes\85.txt" />
+    <EmbeddedResource Include="Content\Shoes\86.jpg" />
+    <EmbeddedResource Include="Content\Shoes\86.txt" />
+    <EmbeddedResource Include="Content\Shoes\89.jpg" />
+    <EmbeddedResource Include="Content\Shoes\89.txt" />
+    <EmbeddedResource Include="Content\Shoes\90.jpg" />
+    <EmbeddedResource Include="Content\Shoes\90.txt" />
+    <EmbeddedResource Include="Content\Shoes\92.jpg" />
+    <EmbeddedResource Include="Content\Shoes\92.txt" />
+    <EmbeddedResource Include="Content\Shoes\94.jpg" />
+    <EmbeddedResource Include="Content\Shoes\94.txt" />
+    <EmbeddedResource Include="Content\Shoes\98.jpg" />
+    <EmbeddedResource Include="Content\Shoes\98.txt" />
+    <EmbeddedResource Include="Content\Shoes\99.jpg" />
+    <EmbeddedResource Include="Content\Shoes\99.txt" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\VisaMaster.png" />
+    <Content Include="Resources\Images\lillevinkelsko.png" />
+    <Content Include="Resources\Images\search.png" />
+    <Content Include="Resources\Uploads\CleanCode.jpg" />
+    <Content Include="Resources\Uploads\TheArtOfUnitTesting.jpg" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\manageProducts.js" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Cart\Details.cshtml" />
+    <Content Include="Views\Common\NotFound.cshtml" />
+    <Content Include="Views\ManageProducts\Index.cshtml" />
+    <Content Include="Views\ManageProducts\_ManageBooks.cshtml" />
+    <Content Include="Views\ManageProducts\Add.cshtml" />
+    <Content Include="Views\ManageProducts\AddMany.cshtml" />
+    <None Include="Properties\PublishProfiles\iterafagdag2015.pubxml" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Checkout\KlarnaAccount.cshtml" />
+    <Content Include="Views\Checkout\KlarnaInvoice.cshtml" />
+    <Content Include="Views\Shared\_Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Itera.Fagdag.November.Domain\Itera.Fagdag.November.Domain.csproj">
+      <Project>{320320A4-2BCA-4286-A4C9-259C129D9316}</Project>
+      <Name>Itera.Fagdag.November.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2004</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2004/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

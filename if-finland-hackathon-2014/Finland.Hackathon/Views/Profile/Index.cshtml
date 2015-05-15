@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html ng-app="finland.hackathon">
+<head>
+    <script src="../../Scripts/angular.js"></script>
+    <script src="../../app/profile/ctrl.js"></script>
+    <script src="../../app/bootstrapper.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,400italic,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../../Styles/site.css" />
+    <meta charset="utf-8" />
+    <title>Welcome Erik</title>
+</head>
+<body id="profile">
+    <div ng-controller="controller" id="main">
+        <div id="profile-image">
+            <img src="../../Images/profile-picture.png" alt="Person" />
+            <h1>Welcome Erik</h1>
+            <h2>You're at Helsinki Airport</h2>
+        </div>
+
+        <form>
+            <input type="text" value="" placeholder="Search for destination" />
+        </form>
+
+        <div id="up-next-events">
+            <ul>
+                <li class="hotel">
+                    <h3>Go to Sokos Hotell Presidentti</h3>
+                    <span class="desc">Taken from your email information</span>
+                </li>
+                <li class="appointment">
+                    <h3>Go to the Startup Sauna in 1h 29m</h3>
+                    <span class="desc">25 mins to drive there. From 17.00 to 21.00</span>
+                </li>
+                <li class="food">
+                    <a href="/Home">
+                        <h3>Grab some food before &laquo;Startup Sauna&raquo;</h3>
+                        <span class="desc">The meeting lasts for 4 hrs</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <a href="#" class="btn">Back to driving</a>
+    </div>
+</body>
+</html>

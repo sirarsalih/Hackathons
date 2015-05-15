@@ -1,0 +1,60 @@
+﻿@using System.Globalization
+@using Itera.Fagdag.November.ViewModels
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner" style="height:120px;">
+            <div>
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                </button>
+                <a href="@Url.Action("Index", "Product")">
+                    <img style="position: absolute; margin-top:10px; margin-left: 10%" src="~/Resources/Images/lillevinkelsko.png" />
+                </a>
+                
+                <div class="row" style="margin-left:60%">
+
+                    <div class="nav-collapse collapse">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                       
+                    @Html.Partial("_Search", new SearchViewModel())
+                    
+                    @{
+                        var numberOfItems = "ingen";
+                        var itemsInShoppingCart = Session["Cart"] as CartViewModel;
+                        if (itemsInShoppingCart != null)
+                        {
+                            numberOfItems = itemsInShoppingCart.CartProducts.Count.ToString(CultureInfo.InvariantCulture);
+                        }
+                    }
+
+                       
+                </div>
+                <div style="margin-left:60%; margin-top: -25px" class="brandText">Antall varer i handlekurv: @numberOfItems</div>
+
+
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div style="margin-left: 8%;" class="">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

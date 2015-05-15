@@ -1,0 +1,94 @@
+﻿@model ICollection<Itera.Fagdag.November.Domain.Models.CartProduct>
+
+<table>
+    <tr>
+        <td>
+            <table class="CheckoutProducts">
+                <thead>
+                    <tr>
+                        <th>
+                            Vare
+                        </th>
+                        <th />
+                        <th class="CheckoutProdItemCount">
+                            Antall
+                        </th>
+                        <th class="CheckoutProdItemPrice">
+                            Pris
+                        </th>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <hr />
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="CheckoutProdItemText">
+                                @item.Name
+                            </td>
+                            <td class="CheckoutProdItemImageBox">
+                                <img alt="." class="CheckoutProdItemImage" src="@Url.Action("GetFile", "Resource", new { imageName = item.ImageName })" />
+                            </td>
+                            <td class="CheckoutProdItemCount">
+                                @item.Count
+                            </td>
+                            <td class="CheckoutProdItemPrice">
+                                @String.Format("{0:C}", @item.Price)<br/>
+                                <button onclick="RemoveItem(@item.Id)" class="MainButton">Fjern</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <hr />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </td>
+        <td class="CheckoutTableSpace"></td>
+        <td class="CheckoutPaymentShippingTable">
+            <table>
+                <tr>
+                    <td>
+                        <div>Velg betalingsløsning</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="CheckoutPaymentShipping">
+                        <img class="CheckoutPaymentLogo" onclick="onClickExecuteVisa()" src="~/img/VisaMaster.png" alt="Visa & Mastercard">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="CheckoutPaymentShipping">
+                        <img class="CheckoutPaymentLogo" onclick="location.href='@Url.Action("KlarnaInvoice")'" src="https://cdn.klarna.com/public/images/NO/badges/v1/invoice/NO_invoice_badge_std_blue.png?width=300" alt="Klarna Faktura">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="CheckoutPaymentShipping">
+                        <img class="CheckoutPaymentLogo" onclick="location.href='@Url.Action("KlarnaAccount")'" src="https://cdn.klarna.com/public/images/NO/badges/v1/account/NO_account_badge_std_blue.png?width=300" alt="Klarna Konto">
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    function onClickExecuteVisa() {
+        alert('give me all your money');
+    }
+
+    function RemoveItem(itemId) {
+        $.post('@Url.Action("DeleteItem")', { itemId: itemId }, function () {
+            location.reload();
+        });
+    }
+</script>

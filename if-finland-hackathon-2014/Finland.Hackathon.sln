@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finland.Hackathon", "Finland.Hackathon\Finland.Hackathon.csproj", "{1C7FA172-3888-4B13-8B6F-964D92F297E7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5A6DCD0-2C22-448C-B7FA-845955EE1E88} = {D5A6DCD0-2C22-448C-B7FA-845955EE1E88}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{1EA187A6-F25B-48D3-97D4-0ECC96C0291C}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebAppPublishModule.psm1 = PublishScripts\AzureWebAppPublishModule.psm1
+		PublishScripts\Publish-WebApplication.ps1 = PublishScripts\Publish-WebApplication.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{982FC7DA-B5FD-4F86-8361-658A7E16E739}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\FinlandHackathon-WAWS-dev.json = PublishScripts\Configurations\FinlandHackathon-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDataService", "OpenDataService\OpenDataService.csproj", "{D5A6DCD0-2C22-448C-B7FA-845955EE1E88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C7FA172-3888-4B13-8B6F-964D92F297E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7FA172-3888-4B13-8B6F-964D92F297E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7FA172-3888-4B13-8B6F-964D92F297E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7FA172-3888-4B13-8B6F-964D92F297E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A6DCD0-2C22-448C-B7FA-845955EE1E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A6DCD0-2C22-448C-B7FA-845955EE1E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A6DCD0-2C22-448C-B7FA-845955EE1E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A6DCD0-2C22-448C-B7FA-845955EE1E88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{982FC7DA-B5FD-4F86-8361-658A7E16E739} = {1EA187A6-F25B-48D3-97D4-0ECC96C0291C}
+	EndGlobalSection
+EndGlobal

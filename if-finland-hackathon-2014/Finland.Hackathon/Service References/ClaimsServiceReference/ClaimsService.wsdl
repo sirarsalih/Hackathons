@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ClaimsService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:60328/ClaimsService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:60328/ClaimsService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:60328/ClaimsService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/OpenDataService.DataManagement" />
+      <xsd:import schemaLocation="http://localhost:60328/ClaimsService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IClaimsService_GetClaimById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClaimById" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetClaimById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClaimByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetAccidentTypesByCoordinates_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccidentTypesByCoordinates" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetAccidentTypesByCoordinates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccidentTypesByCoordinatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetHourlyStatistics_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHourlyStatistics" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetHourlyStatistics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHourlyStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetDailyStatistics_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDailyStatistics" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetDailyStatistics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDailyStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetClaimsByCoordinates_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClaimsByCoordinates" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetClaimsByCoordinates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClaimsByCoordinatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetAddresses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddresses" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetAddresses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddressesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_WriteLocations_InputMessage">
+    <wsdl:part name="parameters" element="tns:WriteLocations" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_WriteLocations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WriteLocationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetLocationPacksByData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocationPacksByData" />
+  </wsdl:message>
+  <wsdl:message name="IClaimsService_GetLocationPacksByData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocationPacksByDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IClaimsService">
+    <wsdl:operation name="GetClaimById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClaimsService/GetClaimById" message="tns:IClaimsService_GetClaimById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClaimsService/GetClaimByIdResponse" message="tns:IClaimsService_GetClaimById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccidentTypesByCoordinates">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClaimsService/GetAccidentTypesByCoordinates" message="tns:IClaimsService_GetAccidentTypesByCoordinates_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClaimsService/GetAccidentTypesByCoordinatesResponse" message="tns:IClaimsService_GetAccidentTypesByCoordinates_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHourlyStatistics">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClaimsService/GetHourlyStatistics" message="tns:IClaimsService_GetHourlyStatistics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClaimsService/GetHourlyStatisticsResponse" message="tns:IClaimsService_GetHourlyStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDailyStatistics">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClaimsService/GetDailyStatistics" message="tns:IClaimsService_GetDailyStatistics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClaimsService/GetDailyStatisticsResponse" message="tns:IClaimsService_GetDailyStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimsByCoordinates">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClaimsService/GetClaimsByCoordinates" message="tns:IClaimsService_GetClaimsByCoordinates_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClaimsService/GetClaimsByCoordinatesResponse" message="tns:IClaimsService_GetClaimsByCoordinates_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAddresses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClaimsService/GetAddresses" message="tns:IClaimsService_GetAddresses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClaimsService/GetAddressesResponse" message="tns:IClaimsService_GetAddresses_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WriteLocations">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClaimsService/WriteLocations" message="tns:IClaimsService_WriteLocations_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClaimsService/WriteLocationsResponse" message="tns:IClaimsService_WriteLocations_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationPacksByData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClaimsService/GetLocationPacksByData" message="tns:IClaimsService_GetLocationPacksByData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClaimsService/GetLocationPacksByDataResponse" message="tns:IClaimsService_GetLocationPacksByData_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IClaimsService" type="tns:IClaimsService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetClaimById">
+      <soap:operation soapAction="http://tempuri.org/IClaimsService/GetClaimById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccidentTypesByCoordinates">
+      <soap:operation soapAction="http://tempuri.org/IClaimsService/GetAccidentTypesByCoordinates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHourlyStatistics">
+      <soap:operation soapAction="http://tempuri.org/IClaimsService/GetHourlyStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDailyStatistics">
+      <soap:operation soapAction="http://tempuri.org/IClaimsService/GetDailyStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimsByCoordinates">
+      <soap:operation soapAction="http://tempuri.org/IClaimsService/GetClaimsByCoordinates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAddresses">
+      <soap:operation soapAction="http://tempuri.org/IClaimsService/GetAddresses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WriteLocations">
+      <soap:operation soapAction="http://tempuri.org/IClaimsService/WriteLocations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationPacksByData">
+      <soap:operation soapAction="http://tempuri.org/IClaimsService/GetLocationPacksByData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ClaimsService">
+    <wsdl:port name="BasicHttpBinding_IClaimsService" binding="tns:BasicHttpBinding_IClaimsService">
+      <soap:address location="http://localhost:60328/ClaimsService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

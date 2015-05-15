@@ -1,0 +1,12 @@
+﻿@model Itera.Fagdag.November.ViewModels.ProductViewModel
+
+<div class="row">
+    <div class="span4">
+        <img src="@Url.Action("GetFile", "Resource", new {imageName = Model.ImageName})"/>
+    </div>
+    <div class="span4">
+        <h2><b>@Model.Name</b></h2>
+        <p>@Model.Description</p>
+        <p>@Html.ActionLink("Legg til i handlevogn  ", "ReserveAndUpdateCart", "Product", new { id = @Model.Id }, String.Empty)</p>
+    </div>
+</div>

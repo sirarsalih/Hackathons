@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Itera.Fagdag.November.ViewModels.ProductViewModel>
+
+@*<div class="hero-unit">
+    <h1>WebShop</h1>
+    <p class="lead">Welcome to Itera's webshop!</p>
+</div>*@
+
+
+<div class="" style="background: white;">
+    @foreach (var productViewModel in @Model)
+    {
+        <div class="shoeItem span4">
+            <p class="shoeName"><b>@productViewModel.Name</b></p>
+            <img class="shoeImage" src="@Url.Action("GetFile", "Resource", new { imageName = productViewModel.ImageName })" />
+            <p class="smallTextProductList">@productViewModel.Brand</p>
+            <p class="brandText">@productViewModel.Price,-</p>
+            <a href="@Url.Action("Details", "Product", new { id = productViewModel.Id })">Details</a>
+        </div>
+    }
+</div>

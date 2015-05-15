@@ -1,0 +1,7 @@
+bin
+obj
+__testMsDeployConnection__
+__TestProfilesForFilePreview__
+*.user
+*.suo
+*.PublishSettings

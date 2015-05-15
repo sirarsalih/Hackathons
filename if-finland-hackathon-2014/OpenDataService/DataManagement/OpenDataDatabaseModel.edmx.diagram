@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a2858439f704b9995545213e9e458dc" Name="Diagram1">
+        <EntityTypeShape EntityType="OpenDataDatabaseModel.Claim" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OpenDataDatabaseModel.Car" Width="1.5" PointX="7.4888193660829305" PointY="9.0046281856506258" />
+        <EntityTypeShape EntityType="OpenDataDatabaseModel.Location" Width="1.5" PointX="8.15294810391634" PointY="24.138375070010486" />
+        <AssociationConnector Association="OpenDataDatabaseModel.FK_Claim_ToCar" />
+        <AssociationConnector Association="OpenDataDatabaseModel.FK_Claim_ToLocation" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

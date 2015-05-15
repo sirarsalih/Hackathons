@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html ng-app="finland.hackathon">
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,400italic,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../../Styles/site.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="../../Scripts/angular.js"></script>
+    <script src="../../app/mapFeature/ctrl.js"></script>
+    <script src="../../app/mapFeature/svc.js"></script>
+    <script src="../../app/claimFeature/claimCtrl.js"></script>
+    <script src="../../app/claimFeature/claimSvc.js"></script>
+    <script src="../../app/mapFeature/directive.js"></script>
+    <script src="../../app/bootstrapper.js"></script>
+    <meta charset="utf-8" />
+    <title>Navigation</title>
+</head>
+<body>
+    <div ng-controller="controller" id="main-map">
+        <div id="map" style="height:100%;"></div>
+        <div id="card-stack">
+            <div id="RouteInfo" class="card" ng-show="showFood">
+                <div id="info-content">
+                    <ul>
+                        <li>
+                            <input type="radio" id="route1" name="route" checked="checked" ng-click="route1()" />
+                            <label for="route1">Food in the City Center</label>
+                            <span class="desc">50 min drive time. Recommended based on foursquare friends visited places.</span>
+                        </li>
+                        <li>
+                            <input type="radio" id="route2" name="route" ng-click="route2()" />
+                            <label for="route2">Food in Espoo</label>
+                            <span class="desc">30 min drive time at the moment because of heavy traffic. Selection of restaurant made by your earlier visited at foursquare.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div id="info-message" class="card" ng-show="showInfoMessage">
+                <div id="info-header">Caption</div>
+                <div id="info-text">Text</div>
+            </div>
+
+            <div class="card" ng-show="!isDriving">
+                <a href="#" ng-click="drivePositions(0, 100)" class="btn" id="driveButton" ng-show="!isEnRoute">Drive</a>
+                <a href="#" ng-click="drivePositions(100, positions.length)" class="btn" id="resumeButton" ng-show="isEnRoute">Resume drive</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

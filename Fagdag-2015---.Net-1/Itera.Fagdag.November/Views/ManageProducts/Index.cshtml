@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Itera.Fagdag.November.ViewModels.ProductViewModel>
+@Scripts.Render("~/bundles/ManageProducts")
+<div class="row">
+    @*@Html.Partial("~/Views/ManageProducts/_ManageProducts.cshtml")*@
+    @{
+        var counter = 0;
+    }
+    @foreach (var productViewModel in @Model)
+    {
+        using (Html.BeginForm("UpdateProduct", "ManageProducts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            counter += 1;
+            <div class="row">
+                <div class="span1.5">
+                    <div id="thumbnailImage-@counter">
+                        <a href="@Url.Action("Details", "Product", new {id = productViewModel.Number})"><img class="thumbnail" src="@Url.Action("GetFile", "Resource", new { imageName = productViewModel.ImageName })" /></a>
+                    </div>
+                    <div id="imageUpload-@counter" style="display: none">
+                        <label for="file-input-@counter">
+                            <img class="thumbnail" src="@Url.Action("GetFile", "Resource", new { imageName = productViewModel.ImageName })" />
+                            <a class="icon-pencil" style="float: right"></a>
+                        </label>
+                        <input type="hidden" name="id" value="@productViewModel.Number" />
+                        <input id="file-input-@counter" name="CoverImageBase" style="display: none;" type="file" />
+                    </div>
+                </div>
+            </div>
+            <br/>
+        }
+    }
+</div>

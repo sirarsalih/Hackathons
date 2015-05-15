@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OpenDataDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="OpenDataDatabaseModelStoreContainer">
+          <EntitySet Name="Car" EntityType="OpenDataDatabaseModel.Store.Car" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Claim" EntityType="OpenDataDatabaseModel.Store.Claim" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Location" EntityType="OpenDataDatabaseModel.Store.Location" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Claim_ToCar" Association="OpenDataDatabaseModel.Store.FK_Claim_ToCar">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Claim" EntitySet="Claim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Claim_ToLocation" Association="OpenDataDatabaseModel.Store.FK_Claim_ToLocation">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Claim" EntitySet="Claim" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CylinderVolume" Type="int" Nullable="false" />
+          <Property Name="NumberOfSeats" Type="int" Nullable="false" />
+          <Property Name="Color" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="Length" Type="int" Nullable="false" />
+          <Property Name="Width" Type="int" Nullable="false" />
+          <Property Name="DistanceBetweenAxes" Type="int" Nullable="false" />
+          <Property Name="Kilowatts" Type="int" Nullable="false" />
+          <Property Name="FuelType" Type="int" Nullable="false" />
+          <Property Name="FirstUseDate" Type="datetime" Nullable="false" />
+          <Property Name="Brand" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Claim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Product" Type="int" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Venue" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Situation" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RoadType" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MunicipalityClaim" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MunicipalityPolicyholder" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
+          <Property Name="CarId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Claim_ToCar">
+          <End Role="Car" Type="OpenDataDatabaseModel.Store.Car" Multiplicity="1" />
+          <End Role="Claim" Type="OpenDataDatabaseModel.Store.Claim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Claim">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Claim_ToLocation">
+          <End Role="Location" Type="OpenDataDatabaseModel.Store.Location" Multiplicity="1" />
+          <End Role="Claim" Type="OpenDataDatabaseModel.Store.Claim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Claim">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OpenDataDatabaseModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OpenDataDatabaseEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Claim" EntityType="OpenDataDatabaseModel.Claim" />
+          <EntitySet Name="Car" EntityType="OpenDataDatabaseModel.Car" />
+          <EntitySet Name="Location" EntityType="OpenDataDatabaseModel.Location" />
+          <AssociationSet Name="FK_Claim_ToCar" Association="OpenDataDatabaseModel.FK_Claim_ToCar">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Claim" EntitySet="Claim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Claim_ToLocation" Association="OpenDataDatabaseModel.FK_Claim_ToLocation">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Claim" EntitySet="Claim" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Claim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Product" Type="OpenDataDatabaseModel.Product" Nullable="false" />
+          <Property Name="ClaimType" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gender" Type="OpenDataDatabaseModel.Gender" Nullable="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Situation" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="RoadType" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MunicipalityClaim" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MunicipalityPolicyholder" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
+          <Property Name="CarId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Car" Relationship="OpenDataDatabaseModel.FK_Claim_ToCar" FromRole="Claim" ToRole="Car" />
+          <NavigationProperty Name="Location" Relationship="OpenDataDatabaseModel.FK_Claim_ToLocation" FromRole="Claim" ToRole="Location" />
+        </EntityType>
+        <EnumType Name="Product">
+          <Member Name="MTPL" Value="0" />
+          <Member Name="Casco" Value="1" />
+        </EnumType>
+        <EnumType Name="Gender">
+          <Member Name="Male" Value="0" />
+          <Member Name="Female" Value="1" />
+          <Member Name="Undefined" Value="2" />
+        </EnumType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="CylinderVolume" Nullable="false" />
+          <Property Type="Int32" Name="NumberOfSeats" Nullable="false" />
+          <Property Type="String" Name="Color" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Length" Nullable="false" />
+          <Property Type="Int32" Name="Width" Nullable="false" />
+          <Property Type="Int32" Name="DistanceBetweenAxes" Nullable="false" />
+          <Property Type="Int32" Name="Kilowatts" Nullable="false" />
+          <Property Type="OpenDataDatabaseModel.FuelType" Name="FuelType" Nullable="false" />
+          <Property Type="DateTime" Name="FirstUseDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Brand" Nullable="false" />
+          <Property Type="Int32" Name="Weight" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="Latitude" Nullable="false" />
+          <Property Type="Double" Name="Longitude" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Claim_ToCar">
+          <End Type="OpenDataDatabaseModel.Car" Role="Car" Multiplicity="1" />
+          <End Type="OpenDataDatabaseModel.Claim" Role="Claim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Claim">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Claim_ToLocation">
+          <End Type="OpenDataDatabaseModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="OpenDataDatabaseModel.Claim" Role="Claim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Claim">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="FuelType">
+          <Member Name="Benzine" Value="1" />
+          <Member Name="Diesel" Value="2" />
+          <Member Name="Undefined" Value="0" />
+        </EnumType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OpenDataDatabaseModelStoreContainer" CdmEntityContainer="OpenDataDatabaseEntities">
+          <EntitySetMapping Name="Claim">
+            <EntityTypeMapping TypeName="OpenDataDatabaseModel.Claim">
+              <MappingFragment StoreEntitySet="Claim">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="Situation" ColumnName="Situation" />
+                <ScalarProperty Name="RoadType" ColumnName="RoadType" />
+                <ScalarProperty Name="MunicipalityClaim" ColumnName="MunicipalityClaim" />
+                <ScalarProperty Name="MunicipalityPolicyholder" ColumnName="MunicipalityPolicyholder" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Car">
+            <EntityTypeMapping TypeName="OpenDataDatabaseModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="FirstUseDate" ColumnName="FirstUseDate" />
+                <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+                <ScalarProperty Name="Kilowatts" ColumnName="Kilowatts" />
+                <ScalarProperty Name="DistanceBetweenAxes" ColumnName="DistanceBetweenAxes" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="NumberOfSeats" ColumnName="NumberOfSeats" />
+                <ScalarProperty Name="CylinderVolume" ColumnName="CylinderVolume" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Location">
+            <EntityTypeMapping TypeName="OpenDataDatabaseModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

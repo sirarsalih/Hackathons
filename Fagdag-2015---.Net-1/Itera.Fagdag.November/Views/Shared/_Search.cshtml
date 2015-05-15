@@ -1,0 +1,10 @@
+﻿@model Itera.Fagdag.November.ViewModels.SearchViewModel
+
+@using (Html.BeginForm("Search", "Search", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.Input, new { @placeholder = "Søk...", @style = "width:400px;" })
+
+    <a href="@Url.Action("Search", "Search")">
+        <input type="image" src="~/Resources/Images/search.png" alt="Submit" style="position: absolute;" height="30" width="30" />
+    </a>
+}
