@@ -29,30 +29,32 @@ namespace PirCam
 
             InitilizeWebcam();
 
-            string connectionString =
+            var connectionString =
                 "Endpoint=sb://iteraphotobooth.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wQYYVYvzgZmeWxTF+Z3nWLzBQ7j0YrY8RK47QEbsDH4=";
 
-            SubscriptionClient subscriptionClient =
-                SubscriptionClient.CreateFromConnectionString
-                    (connectionString, "PhotoTopic", "AllMessages");
+            var client =
+              QueueClient.CreateFromConnectionString(connectionString, "PhotoQueue");
 
             // Configure the callback options.
-            OnMessageOptions options = new OnMessageOptions {AutoComplete = false};
 
-            TopicClient client =
-                TopicClient.CreateFromConnectionString(connectionString, "PhotoTopic");
+            var options = new OnMessageOptions {AutoComplete = false};
 
-            subscriptionClient.OnMessage((message) =>
+            // Callback to handle received messages.
+
+            client.OnMessage((message) =>
             {
                 try
                 {
                     TakePicture();
-                    client.Send(message);
+                    // Remove message from queue.
+                    message.Complete();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    new MessageDialog(ex.Message).ShowAsync();
+                    // Indicates a problem, unlock message in queue.
+                    message.Dispose();
                 }
+
             }, options);
         }
 
