@@ -20,8 +20,11 @@ namespace PirCam
 {
     public sealed partial class MainPage
     {
-        //Webcam variables
+        //Cam variables
         private MediaCapture _mediaCap = new MediaCapture();
+        private const string ServiceBusConnectionString =
+            "Endpoint=sb://iteraphotobooth.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wQYYVYvzgZmeWxTF+Z3nWLzBQ7j0YrY8RK47QEbsDH4=";
+        private const string ServiceBusQueueName = "PhotoQueue";
 
         public MainPage()
         {
@@ -29,18 +32,13 @@ namespace PirCam
 
             InitilizeCam();
 
-            var connectionString =
-                "Endpoint=sb://iteraphotobooth.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wQYYVYvzgZmeWxTF+Z3nWLzBQ7j0YrY8RK47QEbsDH4=";
+            InitializeServiceBusAndHandleMessage();
+        }
 
-            var client =
-              QueueClient.CreateFromConnectionString(connectionString, "PhotoQueue");
-
-            // Configure the callback options.
-
+        private void InitializeServiceBusAndHandleMessage()
+        {
+            var client = QueueClient.CreateFromConnectionString(ServiceBusConnectionString, ServiceBusQueueName);
             var options = new OnMessageOptions {AutoComplete = false};
-
-            // Callback to handle received messages.
-
             client.OnMessage((message) =>
             {
                 try
@@ -51,10 +49,9 @@ namespace PirCam
                 }
                 catch (Exception)
                 {
-                    // Indicates a problem, unlock message in queue.
+                    // Indicates a problem, dispose message.
                     message.Dispose();
                 }
-
             }, options);
         }
 
