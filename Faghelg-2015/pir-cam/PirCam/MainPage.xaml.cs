@@ -27,7 +27,7 @@ namespace PirCam
         {
             InitializeComponent();
 
-            InitilizeWebcam();
+            InitilizeCam();
 
             var connectionString =
                 "Endpoint=sb://iteraphotobooth.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wQYYVYvzgZmeWxTF+Z3nWLzBQ7j0YrY8RK47QEbsDH4=";
@@ -58,7 +58,7 @@ namespace PirCam
             }, options);
         }
 
-        private async void InitilizeWebcam()
+        private async void InitilizeCam()
         {
             try
             {
