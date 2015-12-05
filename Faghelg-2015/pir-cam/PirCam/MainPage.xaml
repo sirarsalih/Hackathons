@@ -11,6 +11,6 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image x:Name="CaptureImage" Width="320" Height="320" Visibility="Visible"/>
         </StackPanel>
-        <Button x:Name="Execute" Content="Button" HorizontalAlignment="Left" Margin="33,28,0,0" VerticalAlignment="Top" Height="83" Width="209" Click="Execute_Click"/>
+        <Button x:Name="Execute" Content="Take picture" HorizontalAlignment="Left" Margin="33,28,0,0" VerticalAlignment="Top" Height="83" Width="209" Click="Execute_Click"/>
     </Grid>
 </Page>
