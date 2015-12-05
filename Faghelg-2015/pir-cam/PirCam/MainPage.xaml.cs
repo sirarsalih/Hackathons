@@ -56,6 +56,33 @@ namespace PirCam
             }, options);
         }
 
+        private async void InitilizeWebcam()
+        {
+            try
+            {
+                //initialize the WebCam via MediaCapture object
+                _mediaCap = new MediaCapture();
+                await _mediaCap.InitializeAsync();
+
+                // Set callbacks for any possible failure in TakePicture() logic
+                _mediaCap.Failed += MediaCapture_Failed;
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message).ShowAsync();
+            }
+        }
+
+        private async void MediaCapture_Failed(MediaCapture currentCaptureObject, MediaCaptureFailedEventArgs currentFailure)
+        {
+            await new MessageDialog(currentFailure.Message).ShowAsync();
+        }
+
+        private void Execute_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            TakePicture();
+        }
+
         private async void TakePicture()
         {
             try
@@ -69,15 +96,13 @@ namespace PirCam
 
                 //show photo onscreen
                 IRandomAccessStream photoStream = await photoFile.OpenReadAsync();
-                //var bitmap = new BitmapImage();
-                //bitmap.SetSource(photoStream);
 
                 BitmapImage bitmap = null;
-                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    bitmap = new BitmapImage();
-                    bitmap.SetSource(photoStream);
-                });
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                 {
+                     bitmap = new BitmapImage();
+                     bitmap.SetSource(photoStream);
+                 });
 
                 var v = Task.Factory.StartNew(() => File.ReadAllBytes(photoFile.Path));
                 v.Wait();
@@ -98,10 +123,10 @@ namespace PirCam
                     var resultContent = result.Content.ReadAsStringAsync().Result;
                 }
 
-                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    CaptureImage.Source = bitmap;
-                });
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                 {
+                     CaptureImage.Source = bitmap;
+                 });
 
                 var t = Task.Factory.StartNew(() => File.Delete(photoFile.Path));
                 t.Wait();
@@ -110,33 +135,6 @@ namespace PirCam
             {
                 new MessageDialog(ex.Message).ShowAsync();
             }
-        }
-
-        private async void MediaCapture_Failed(MediaCapture currentCaptureObject, MediaCaptureFailedEventArgs currentFailure)
-        {
-            await new MessageDialog(currentFailure.Message).ShowAsync();
-        }
-
-        private async void InitilizeWebcam()
-        {
-            try
-            {
-                //initialize the WebCam via MediaCapture object
-                _mediaCap = new MediaCapture();
-                await _mediaCap.InitializeAsync();
-
-                // Set callbacks for any possible failure in TakePicture() logic
-                _mediaCap.Failed += MediaCapture_Failed;
-            }
-            catch (Exception ex)
-            {
-                await new MessageDialog(ex.Message).ShowAsync();
-            }
-        }
-
-        private void Execute_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            TakePicture();
         }
     }
 }
