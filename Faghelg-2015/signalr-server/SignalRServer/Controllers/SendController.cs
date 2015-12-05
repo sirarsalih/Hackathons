@@ -26,58 +26,26 @@ namespace SignalRServer.Controllers
         public ContentResult TakePicture()
         {
             // Create the topic if it does not exist already.
-            string connectionString = ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"];
+            var connectionString = ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"];
 
             var namespaceManager =
                 NamespaceManager.CreateFromConnectionString(connectionString);
 
-            if (!namespaceManager.TopicExists("PhotoTopic"))
+            var qd = new QueueDescription("PhotoQueue")
             {
-                namespaceManager.CreateTopic("PhotoTopic");
+                MaxSizeInMegabytes = 1024,
+                DefaultMessageTimeToLive = new TimeSpan(0, 1, 0)
+            };
+
+            if (!namespaceManager.QueueExists("PhotoQueue"))
+            {
+                namespaceManager.CreateQueue(qd);
             }
 
-            // ----------------------------------------------------------------------------------------
+            var client =
+                QueueClient.CreateFromConnectionString(connectionString, "PhotoQueue");
 
-            if (!namespaceManager.SubscriptionExists("PhotoTopic", "AllMessages"))
-            {
-                namespaceManager.CreateSubscription("PhotoTopic", "AllMessages");
-            }
-
-            if (!namespaceManager.SubscriptionExists("PhotoTopic", "PictureTaken"))
-            {
-                namespaceManager.CreateSubscription("PhotoTopic", "PictureTaken");
-            }
-
-            // ----------------------------------------------------------------------------------------
-
-            TopicClient client =
-                TopicClient.CreateFromConnectionString(connectionString, "PhotoTopic");
-            
-            BrokeredMessage message = new BrokeredMessage();
-            // Send message to the topic.
-            client.Send(message);
-
-            SubscriptionClient subscriptionClient =
-                SubscriptionClient.CreateFromConnectionString
-                    (connectionString, "PhotoTopic", "PictureTaken");
-
-            // Configure the callback options.
-            OnMessageOptions options = new OnMessageOptions();
-            options.AutoComplete = false;
-            options.AutoRenewTimeout = TimeSpan.FromMinutes(1);
-
-            subscriptionClient.OnMessage((incMessage) =>
-            {
-                try
-                {
-                    incMessage.Complete();
-                }
-                catch (Exception ex)
-                {
-                    incMessage.Abandon();
-                }
-            }, options);
-
+            client.Send(new BrokeredMessage());
             return new ContentResult();
         }
 
