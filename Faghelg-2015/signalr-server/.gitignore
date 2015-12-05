@@ -2,3 +2,4 @@ SignalRServer/bin/
 SignalRServer/obj/
 *.user
 .vs
+*.pubxml
