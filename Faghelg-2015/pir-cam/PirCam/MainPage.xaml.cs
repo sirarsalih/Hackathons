@@ -62,7 +62,7 @@ namespace PirCam
             {
                 //initialize the WebCam via MediaCapture object
                 _mediaCap = new MediaCapture();
-                var settings = new Windows.Media.Capture.MediaCaptureInitializationSettings();
+                var settings = new MediaCaptureInitializationSettings();
 
                 var cams = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
 
@@ -76,6 +76,15 @@ namespace PirCam
                         if (location == null || location.Panel != Panel.Front) continue;
                         settings.VideoDeviceId = cam.Id;
                         await _mediaCap.InitializeAsync(settings);
+
+                        //Todo: not working
+                        _mediaCap.SetPreviewRotation(VideoRotation.Clockwise180Degrees);
+
+                        //Todo: not working
+                        //var videoEncodingProperties = _mediaCap.VideoDeviceController.GetMediaStreamProperties(MediaStreamType.VideoPreview);
+                        //videoEncodingProperties.Properties.Add(new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1"), 90);
+                        //await _mediaCap.SetEncodingPropertiesAsync(MediaStreamType.VideoPreview, videoEncodingProperties, null);
+
                         foundFront = true;
                         break;
                     }
@@ -117,6 +126,7 @@ namespace PirCam
 
                 //use the MediaCapture object to stream captured photo to a file
                 var imageProperties = ImageEncodingProperties.CreateJpeg();
+                
                 await _mediaCap.CapturePhotoToStorageFileAsync(imageProperties, photoFile);
 
                 //show photo onscreen
