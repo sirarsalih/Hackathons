@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Sensors;
 using Windows.Foundation;
+using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Media.Capture;
 using Windows.Media.MediaProperties;
@@ -27,7 +28,7 @@ namespace PirCam
     public sealed partial class MainPage
     {
         //Cam variables
-        private MediaCapture _mediaCap = new MediaCapture();
+        private MediaCapture _mediaCapture = new MediaCapture();
         private const string ServiceBusConnectionString =
             "Endpoint=sb://iteraphotobooth.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wQYYVYvzgZmeWxTF+Z3nWLzBQ7j0YrY8RK47QEbsDH4=";
         private const string ServiceBusQueueName = "PhotoQueue";
@@ -36,6 +37,7 @@ namespace PirCam
 #else
         private const string SignalRServerUrl = "http://iteraphotobooth.azurewebsites.net/Send/SendImage";
 #endif
+        private bool _foundFrontCam;
 
         public MainPage()
         {
@@ -71,13 +73,12 @@ namespace PirCam
             try
             {
                 //initialize the WebCam via MediaCapture object
-                _mediaCap = new MediaCapture();
+                _mediaCapture = new MediaCapture();
                 var settings = new MediaCaptureInitializationSettings();
 
                 var cams = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
 
                 // If more than 1 cam, then choose the front if available
-                var foundFront = false;
                 if (cams.Count > 1)
                 {
                     foreach (var cam in cams)
@@ -85,22 +86,22 @@ namespace PirCam
                         var location = cam.EnclosureLocation;
                         if (location == null || location.Panel != Panel.Front) continue;
                         settings.VideoDeviceId = cam.Id;
-                        await _mediaCap.InitializeAsync(settings);
-                        foundFront = true;
+                        await _mediaCapture.InitializeAsync(settings);
+                        _foundFrontCam = true;
                         break;
                     }
-                    if (!foundFront)
+                    if (!_foundFrontCam)
                     {
-                        await _mediaCap.InitializeAsync();
+                        await _mediaCapture.InitializeAsync();
                     }
                 }
                 else
                 {
-                    await _mediaCap.InitializeAsync();
+                    await _mediaCapture.InitializeAsync();
                 }
 
                 // Set callbacks for any possible failure in TakePicture() logic
-                _mediaCap.Failed += MediaCapture_Failed;
+                _mediaCapture.Failed += MediaCapture_Failed;
             }
             catch (Exception ex)
             {
@@ -124,9 +125,9 @@ namespace PirCam
 
             try
             {
-                await _mediaCap.CapturePhotoToStreamAsync(ImageEncodingProperties.CreateJpeg(), stream);
+                await _mediaCapture.CapturePhotoToStreamAsync(ImageEncodingProperties.CreateJpeg(), stream);
 
-                var photoOrientation = ConvertOrientationToPhotoOrientation(SimpleOrientation.Rotated90DegreesCounterclockwise);
+                var photoOrientation = _foundFrontCam ? PhotoOrientation.Rotate90 : PhotoOrientation.Normal;
 
                 var photoFile = await KnownFolders.PicturesLibrary.CreateFileAsync("Photo.jpeg", CreationCollisionOption.GenerateUniqueName);
 
@@ -192,22 +193,6 @@ namespace PirCam
                     await encoder.BitmapProperties.SetPropertiesAsync(properties);
                     await encoder.FlushAsync();
                 }
-            }
-        }
-
-        private static PhotoOrientation ConvertOrientationToPhotoOrientation(SimpleOrientation orientation)
-        {
-            switch (orientation)
-            {
-                case SimpleOrientation.Rotated90DegreesCounterclockwise:
-                    return PhotoOrientation.Rotate90;
-                case SimpleOrientation.Rotated180DegreesCounterclockwise:
-                    return PhotoOrientation.Rotate180;
-                case SimpleOrientation.Rotated270DegreesCounterclockwise:
-                    return PhotoOrientation.Rotate270;
-                case SimpleOrientation.NotRotated:
-                default:
-                    return PhotoOrientation.Normal;
             }
         }
     }
