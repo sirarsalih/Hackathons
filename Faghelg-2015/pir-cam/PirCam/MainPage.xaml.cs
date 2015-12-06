@@ -3,9 +3,13 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
+using Windows.Devices.Sensors;
+using Windows.Foundation;
+using Windows.Graphics.Imaging;
 using Windows.Media.Capture;
 using Windows.Media.MediaProperties;
 using Windows.Storage;
+using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -16,6 +20,7 @@ using ppatierno.AzureSBLite.Messaging;
 // http://ms-iot.github.io/content/en-US/win10/samples/WebCamSample.htm
 // https://github.com/katpurz/Win10IoTMotionSurveillanceCamera
 // http://raspi.tv/wp-content/uploads/2014/07/Raspberry-Pi-GPIO-pinouts.png
+// http://stackoverflow.com/questions/26620523/how-do-i-take-a-photo-with-the-correct-rotation-aspect-ratio-in-windows-phone-8
 
 namespace PirCam
 {
@@ -26,6 +31,11 @@ namespace PirCam
         private const string ServiceBusConnectionString =
             "Endpoint=sb://iteraphotobooth.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wQYYVYvzgZmeWxTF+Z3nWLzBQ7j0YrY8RK47QEbsDH4=";
         private const string ServiceBusQueueName = "PhotoQueue";
+#if DEBUG
+        private const string SignalRServerUrl = "http://localhost:55199/Send/SendImage";
+#else
+        private const string SignalRServerUrl = "http://iteraphotobooth.azurewebsites.net/Send/SendImage";
+#endif
 
         public MainPage()
         {
@@ -76,15 +86,6 @@ namespace PirCam
                         if (location == null || location.Panel != Panel.Front) continue;
                         settings.VideoDeviceId = cam.Id;
                         await _mediaCap.InitializeAsync(settings);
-
-                        //Todo: not working
-                        _mediaCap.SetPreviewRotation(VideoRotation.Clockwise180Degrees);
-
-                        //Todo: not working
-                        //var videoEncodingProperties = _mediaCap.VideoDeviceController.GetMediaStreamProperties(MediaStreamType.VideoPreview);
-                        //videoEncodingProperties.Properties.Add(new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1"), 90);
-                        //await _mediaCap.SetEncodingPropertiesAsync(MediaStreamType.VideoPreview, videoEncodingProperties, null);
-
                         foundFront = true;
                         break;
                     }
@@ -119,56 +120,94 @@ namespace PirCam
 
         private async void TakePicture()
         {
+            var stream = new InMemoryRandomAccessStream();
+
             try
             {
-                //gets a reference to the file we're about to write a picture into
-                var photoFile = await KnownFolders.PicturesLibrary.CreateFileAsync("#¤¤#.jpg", CreationCollisionOption.ReplaceExisting);
+                await _mediaCap.CapturePhotoToStreamAsync(ImageEncodingProperties.CreateJpeg(), stream);
 
-                //use the MediaCapture object to stream captured photo to a file
-                var imageProperties = ImageEncodingProperties.CreateJpeg();
+                var photoOrientation = ConvertOrientationToPhotoOrientation(SimpleOrientation.Rotated90DegreesCounterclockwise);
+
+                var photoFile = await KnownFolders.PicturesLibrary.CreateFileAsync("Photo.jpeg", CreationCollisionOption.GenerateUniqueName);
+
+                await ReencodeAndSavePhotoAsync(stream, photoOrientation, photoFile);
                 
-                await _mediaCap.CapturePhotoToStorageFileAsync(imageProperties, photoFile);
+                var imageBytes = await ShowPhotoOnScreenThenDeleteAsync(photoFile);
 
-                //show photo onscreen
-                IRandomAccessStream photoStream = await photoFile.OpenReadAsync();
-
-                BitmapImage bitmap = null;
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                 {
-                     bitmap = new BitmapImage();
-                     bitmap.SetSource(photoStream);
-                 });
-
-                var v = Task.Factory.StartNew(() => File.ReadAllBytes(photoFile.Path));
-                v.Wait();
-                var imageBytes = v.Result;
-
-                using (var httpClient = new HttpClient(new HttpClientHandler { UseDefaultCredentials = true }))
-                {
-                    var mfdc = new MultipartFormDataContent
-                    {
-                        {new StreamContent(content: new MemoryStream(imageBytes)), "Image", "Image.jpeg"}
-                    };
-
-#if DEBUG
-                    var result = httpClient.PostAsync("http://localhost:55199/Send/SendImage", mfdc).Result;
-#else
-                    var result = httpClient.PostAsync("http://iteraphotobooth.azurewebsites.net/Send/SendImage", mfdc).Result;
-#endif
-                    var resultContent = result.Content.ReadAsStringAsync().Result;
-                }
-
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                 {
-                     CaptureImage.Source = bitmap;
-                 });
-
-                var t = Task.Factory.StartNew(() => File.Delete(photoFile.Path));
-                t.Wait();
+                PostToServerAsync(imageBytes);
             }
             catch (Exception ex)
             {
                 new MessageDialog(ex.Message).ShowAsync();
+            }
+        }
+
+        private static void PostToServerAsync(byte[] imageBytes)
+        {
+            using (var httpClient = new HttpClient(new HttpClientHandler {UseDefaultCredentials = true}))
+            {
+                var mfdc = new MultipartFormDataContent
+                {
+                    {new StreamContent(content: new MemoryStream(imageBytes)), "Photo", "Photo.jpeg"}
+                };
+                var result = httpClient.PostAsync(SignalRServerUrl, mfdc).Result;
+                var resultContent = result.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        private async Task<byte[]> ShowPhotoOnScreenThenDeleteAsync(StorageFile photoFile)
+        {
+            IRandomAccessStream photoStream = await photoFile.OpenReadAsync();
+
+            BitmapImage bitmap = null;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                bitmap = new BitmapImage();
+                bitmap.SetSource(photoStream);
+            });
+
+            var v = Task.Factory.StartNew(() => File.ReadAllBytes(photoFile.Path));
+            v.Wait();
+            var imageBytes = v.Result;
+
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { CaptureImage.Source = bitmap; });
+
+            var t = Task.Factory.StartNew(() => File.Delete(photoFile.Path));
+            t.Wait();
+            return imageBytes;
+        }
+
+        private async Task ReencodeAndSavePhotoAsync(IRandomAccessStream stream, PhotoOrientation photoOrientation, StorageFile photoFile)
+        {
+            using (var inputStream = stream)
+            {
+                var decoder = await BitmapDecoder.CreateAsync(inputStream);
+
+                using (var outputStream = await photoFile.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    var encoder = await BitmapEncoder.CreateForTranscodingAsync(outputStream, decoder);
+
+                    var properties = new BitmapPropertySet { { "System.Photo.Orientation", new BitmapTypedValue(photoOrientation, PropertyType.UInt16) } };
+
+                    await encoder.BitmapProperties.SetPropertiesAsync(properties);
+                    await encoder.FlushAsync();
+                }
+            }
+        }
+
+        private static PhotoOrientation ConvertOrientationToPhotoOrientation(SimpleOrientation orientation)
+        {
+            switch (orientation)
+            {
+                case SimpleOrientation.Rotated90DegreesCounterclockwise:
+                    return PhotoOrientation.Rotate90;
+                case SimpleOrientation.Rotated180DegreesCounterclockwise:
+                    return PhotoOrientation.Rotate180;
+                case SimpleOrientation.Rotated270DegreesCounterclockwise:
+                    return PhotoOrientation.Rotate270;
+                case SimpleOrientation.NotRotated:
+                default:
+                    return PhotoOrientation.Normal;
             }
         }
     }
