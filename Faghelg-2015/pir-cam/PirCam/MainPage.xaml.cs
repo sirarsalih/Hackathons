@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.Devices.Enumeration;
 using Windows.Media.Capture;
 using Windows.Media.MediaProperties;
 using Windows.Storage;
@@ -61,7 +62,32 @@ namespace PirCam
             {
                 //initialize the WebCam via MediaCapture object
                 _mediaCap = new MediaCapture();
-                await _mediaCap.InitializeAsync();
+                var settings = new Windows.Media.Capture.MediaCaptureInitializationSettings();
+
+                var cams = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
+
+                // If more than 1 cam, then choose the front if available
+                var foundFront = false;
+                if (cams.Count > 1)
+                {
+                    foreach (var cam in cams)
+                    {
+                        var location = cam.EnclosureLocation;
+                        if (location == null || location.Panel != Panel.Front) continue;
+                        settings.VideoDeviceId = cam.Id;
+                        await _mediaCap.InitializeAsync(settings);
+                        foundFront = true;
+                        break;
+                    }
+                    if (!foundFront)
+                    {
+                        await _mediaCap.InitializeAsync();
+                    }
+                }
+                else
+                {
+                    await _mediaCap.InitializeAsync();
+                }
 
                 // Set callbacks for any possible failure in TakePicture() logic
                 _mediaCap.Failed += MediaCapture_Failed;
