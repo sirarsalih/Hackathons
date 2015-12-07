@@ -3,9 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
-using Windows.Devices.Sensors;
 using Windows.Foundation;
-using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Media.Capture;
 using Windows.Media.MediaProperties;
@@ -27,17 +25,17 @@ namespace PirCam
 {
     public sealed partial class MainPage
     {
-        //Cam variables
-        private MediaCapture _mediaCapture = new MediaCapture();
+        private MediaCapture _mediaCapture;
         private const string ServiceBusConnectionString =
             "Endpoint=sb://iteraphotobooth.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wQYYVYvzgZmeWxTF+Z3nWLzBQ7j0YrY8RK47QEbsDH4=";
         private const string ServiceBusQueueName = "PhotoQueue";
+        private readonly HttpClient _httpClient = new HttpClient(new HttpClientHandler {UseDefaultCredentials = true});
+        private bool _foundFrontCam;
 #if DEBUG
         private const string SignalRServerUrl = "http://localhost:55199/Send/SendImage";
 #else
         private const string SignalRServerUrl = "http://iteraphotobooth.azurewebsites.net/Send/SendImage";
 #endif
-        private bool _foundFrontCam;
 
         public MainPage()
         {
@@ -46,26 +44,6 @@ namespace PirCam
             InitilizeCam();
 
             InitializeServiceBusAndHandleMessage();
-        }
-
-        private void InitializeServiceBusAndHandleMessage()
-        {
-            var client = QueueClient.CreateFromConnectionString(ServiceBusConnectionString, ServiceBusQueueName);
-            var options = new OnMessageOptions {AutoComplete = false};
-            client.OnMessage((message) =>
-            {
-                try
-                {
-                    TakePicture();
-                    // Remove message from queue.
-                    message.Complete();
-                }
-                catch (Exception)
-                {
-                    // Indicates a problem, dispose message.
-                    message.Dispose();
-                }
-            }, options);
         }
 
         private async void InitilizeCam()
@@ -109,6 +87,26 @@ namespace PirCam
             }
         }
 
+        private void InitializeServiceBusAndHandleMessage()
+        {
+            var client = QueueClient.CreateFromConnectionString(ServiceBusConnectionString, ServiceBusQueueName);
+            var options = new OnMessageOptions {AutoComplete = false};
+            client.OnMessage((message) =>
+            {
+                try
+                {
+                    TakePicture();
+                    // Remove message from queue.
+                    message.Complete();
+                }
+                catch (Exception)
+                {
+                    // Indicates a problem, dispose message.
+                    message.Dispose();
+                }
+            }, options);
+        }
+
         private async void MediaCapture_Failed(MediaCapture currentCaptureObject, MediaCaptureFailedEventArgs currentFailure)
         {
             await new MessageDialog(currentFailure.Message).ShowAsync();
@@ -143,17 +141,14 @@ namespace PirCam
             }
         }
 
-        private static void PostToServerAsync(byte[] imageBytes)
+        private void PostToServerAsync(byte[] imageBytes)
         {
-            using (var httpClient = new HttpClient(new HttpClientHandler {UseDefaultCredentials = true}))
+            var mfdc = new MultipartFormDataContent
             {
-                var mfdc = new MultipartFormDataContent
-                {
-                    {new StreamContent(content: new MemoryStream(imageBytes)), "Photo", "Photo.jpeg"}
-                };
-                var result = httpClient.PostAsync(SignalRServerUrl, mfdc).Result;
-                var resultContent = result.Content.ReadAsStringAsync().Result;
-            }
+                {new StreamContent(content: new MemoryStream(imageBytes)), "Photo", "Photo.jpeg"}
+            };
+            var result = _httpClient.PostAsync(SignalRServerUrl, mfdc).Result;
+            var resultContent = result.Content.ReadAsStringAsync().Result;
         }
 
         private async Task<byte[]> ShowPhotoOnScreenThenDeleteAsync(StorageFile photoFile)
