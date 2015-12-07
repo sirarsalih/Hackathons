@@ -52,35 +52,11 @@ namespace SignalRServer.Controllers
         public HttpStatusCodeResult SendImage()
         {
             var imageFile = Request.Files[0];
-
             var ms = new MemoryStream();
             imageFile.InputStream.CopyTo(ms);
             var image = Image.FromStream(ms);
 
-            if (image.PropertyIdList.Contains(0x0112))
-            {
-                int rotationValue = image.GetPropertyItem(0x0112).Value[0];
-                switch (rotationValue)
-                {
-                    case 1: // landscape, do nothing
-                        break;
-
-                    case 8: // rotated 90 right
-                        // de-rotate:
-                        image.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                        break;
-
-                    case 3: // bottoms up
-                        // de-rotate:
-                        image.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                        break;
-
-                    case 6: // rotated 90 left
-                        // de-rotate:
-                        image.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                        break;
-                }
-            }
+            DerotateIfRotatedWrongly(image);
 
             byte[] imageBytes;
             using (ms = new MemoryStream())
@@ -117,7 +93,30 @@ namespace SignalRServer.Controllers
 
         private static void DerotateIfRotatedWrongly(Image image)
         {
-           
+            if (image.PropertyIdList.Contains(0x0112))
+            {
+                int rotationValue = image.GetPropertyItem(0x0112).Value[0];
+                switch (rotationValue)
+                {
+                    case 1: // landscape, do nothing
+                        break;
+
+                    case 8: // rotated 90 right
+                        // de-rotate:
+                        image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        break;
+
+                    case 3: // bottoms up
+                        // de-rotate:
+                        image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        break;
+
+                    case 6: // rotated 90 left
+                        // de-rotate:
+                        image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        break;
+                }
+            }
         }
     }
 }
