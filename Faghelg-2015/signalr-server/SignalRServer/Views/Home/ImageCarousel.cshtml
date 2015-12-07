@@ -26,7 +26,7 @@
         <div class="images">
             @foreach (var imageContent in ViewBag.ImageContents)
             {
-             <div class="image"><div class="maintain-aspect ratio4_3"><a href="@Url.Action("ShowImage", "Send", new { imageId = imageContent.ImageId })" class="swipebox" title="Photobooth"><img src="@Url.Action("ShowImage", "Send", new { imageId = imageContent.ImageId })" alt="image"></a></div></div>
+             <div class="image"><div class="maintain-aspect"><a href="@Url.Action("ShowImage", "Send", new { imageId = imageContent.ImageId })" class="swipebox" title="Photobooth"><img src="@Url.Action("ShowImage", "Send", new { imageId = imageContent.ImageId })" alt="image"></a></div></div>
             }
         </div>
         <button data-action="autoplay">
