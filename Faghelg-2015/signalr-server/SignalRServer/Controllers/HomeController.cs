@@ -33,6 +33,13 @@ namespace SignalRServer.Controllers
             return View();
         }
 
+        [Authorize(Users = "sirar")]
+        public ActionResult ImageCarouselAdmin()
+        {
+            ViewBag.ImageContents = GetAllImages();
+            return View();
+        }
+
         public IEnumerable<ImageContent> GetAllImages()
         {
             IEnumerable<ImageContent> imageContents;

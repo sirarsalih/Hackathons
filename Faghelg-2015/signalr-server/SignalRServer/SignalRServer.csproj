@@ -321,6 +321,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Send\Index.cshtml" />
     <Content Include="Views\Home\ImageCarousel.cshtml" />
+    <Content Include="Views\Home\ImageCarouselAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
