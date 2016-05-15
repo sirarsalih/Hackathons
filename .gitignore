@@ -5,3 +5,4 @@ __TestProfilesForFilePreview__
 *.user
 *.suo
 *.PublishSettings
+.vs
