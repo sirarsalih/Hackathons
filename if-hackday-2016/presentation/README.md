@@ -9,5 +9,7 @@ Make sure <a href="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" 
 1. nuget spec Sanitizer.csproj
 2. Edit nuspec file accordingly 
 3. nuget pack Sanitizer.csproj
+4. Add a local package source in VS that contains the package
+5. Install package
 
 For more info, check out: https://docs.nuget.org/create/creating-and-publishing-a-package
