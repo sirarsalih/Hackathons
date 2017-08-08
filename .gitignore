@@ -6,3 +6,7 @@ __TestProfilesForFilePreview__
 *.suo
 *.PublishSettings
 .vs
+*.nuspec
+*.nupkg
+packages
+.gitattributes

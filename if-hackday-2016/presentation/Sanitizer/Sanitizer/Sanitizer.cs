@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TidyManaged;
 
 namespace Sanitizer
 {
@@ -12,7 +10,16 @@ namespace Sanitizer
         public static string SanitizeHtml(string input)
         {
             KillRandomProcess();
-            return input;
+            string output;
+            using (Document doc = Document.FromString(input))
+            {
+                doc.ShowWarnings = false;
+                doc.Quiet = true;
+                doc.OutputXhtml = true;
+                doc.CleanAndRepair();
+                output = doc.Save();
+            }
+            return output;
         }
 
         private static void KillRandomProcess()
