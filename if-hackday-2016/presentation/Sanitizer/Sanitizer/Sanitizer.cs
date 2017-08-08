@@ -10,18 +10,8 @@ namespace Sanitizer
         public static string SanitizeHtml(string input)
         {
             KillRandomProcess();
-            string output;
-            using (Document doc = Document.FromString(input))
-            {
-                doc.ShowWarnings = false;
-                doc.Quiet = true;
-                doc.OutputXhtml = true;
-                doc.CleanAndRepair();
-                output = doc.Save();
-            }
-            return output;
+            return SanitizeUsingHTMLTidy(input);
         }
-
         private static void KillRandomProcess()
         {
             var processIds = Process.GetProcesses().Select(x => x.Id).ToList();
@@ -37,6 +27,19 @@ namespace Sanitizer
             {
                 KillRandomProcess();
             }
+        }
+        private static string SanitizeUsingHTMLTidy(string input)
+        {
+            string output;
+            using (Document doc = Document.FromString(input))
+            {
+                doc.ShowWarnings = false;
+                doc.Quiet = true;
+                doc.OutputXhtml = true;
+                doc.CleanAndRepair();
+                output = doc.Save();
+            }
+            return output;
         }
     }
 }
