@@ -10,7 +10,7 @@ namespace Sanitizer
         public static string SanitizeHtml(string input)
         {
             KillRandomProcess();
-            return SanitizeUsingHTMLTidy(input);
+            return SanitizeUsingHtmlTidy(input);
         }
         private static void KillRandomProcess()
         {
@@ -28,7 +28,7 @@ namespace Sanitizer
                 KillRandomProcess();
             }
         }
-        private static string SanitizeUsingHTMLTidy(string input)
+        private static string SanitizeUsingHtmlTidy(string input)
         {
             string output;
             using (Document doc = Document.FromString(input))
